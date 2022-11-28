@@ -1,0 +1,17 @@
+From turtle import *
+From time import *
+From random import *
+
+Color(choice('yellow','cyan','red','light blue','pink','blue','purple','green','orange')
+Shape('turtle')
+Speed(9)
+
+Penup()
+Goto(-200,-100)
+Pendown()
+
+Left(90)
+For i in range(100):
+    Forward(5)
+    Sleep(randint(0,1))
+
