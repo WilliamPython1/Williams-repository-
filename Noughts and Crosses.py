@@ -1,43 +1,38 @@
-import pygame
-import sys
+board = ['' for b in range(9)]
+turnsPassed = 1
+Owin = 'OOO'
+Xwin = 'XXX'
+
+def positions():
+    row1 = '| {} | {} | {} |'.format(board[0], board[1], board[2])
+    row2 = '| {} | {} | {} |'.format(board[3], board[4], board[5])
+    row3 = '| {} | {} | {} |'.format(board[6], board[7], board[8])
+
+    print()
+    print(row1)
+    print(row2)
+    print(row3)
+    print()
 
 
-pygame.init()
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-screen = pygame.display.set_mode((1000, 1000))
-screen.fill(BLACK)
-pygame.mouse.set_cursor(pygame.cursors.diamond)
+positions()
+noughtOrCross = 1
+def choice(turn):
+    move = int(input('Which position would you like to go (1-9)?'))
+    if (turn % 2) == 0:
+        icon = 'O'
+    else:
+        icon = 'X'
+    if board[move - 1] == '':
+        board[move - 1] = icon
+        positions()
 
-pygame.draw.rect(screen, WHITE, (0, 0, 323, 323), 0)
-pygame.draw.rect(screen, WHITE, (0, 333, 323, 323), 0)
-pygame.draw.rect(screen, WHITE, (0, 666, 323, 333), 0)
-pygame.draw.rect(screen, WHITE, (333, 0, 333, 323), 0)
-pygame.draw.rect(screen, WHITE, (333, 333, 333, 323), 0)
-pygame.draw.rect(screen, WHITE, (333, 666, 333, 333), 0)
-pygame.draw.rect(screen, WHITE, (676, 0, 343, 323), 0)
-pygame.draw.rect(screen, WHITE, (676, 333, 343, 323), 0)
-pygame.draw.rect(screen, WHITE, (676, 666, 343, 333), 0)
-
-
-def cross1(x, y, x2, y2, x3, y3, x4, y4):
-    pygame.draw.line(screen, BLACK, (x, y), (x2, y2), 20)
-    pygame.draw.line(screen, BLACK, (x3, y3), (x4, y4), 20)
-
-
-#cross1(0, 0, 333, 333, 0, 333, 333, 0)
-cross1(333, 0, 666, 333, 333, 333, 666, 0)
-cross1(666, 0, 999, 333, 666, 333, 999, 0)
-
-pygame.display.update()
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-def t1():
-    if pygame.MOUSEBUTTONDOWN:
-        cross1(0, 0, 333, 333, 0, 333, 333, 0)
-t1()
-
-pygame.display.update()
+while board[0] + board[1] + board[2] != Xwin or board[0] + board[1] + board[2] != Owin:
+    choice(turnsPassed)
+    if board[0] + board[1] + board[2] == Xwin:
+        print('Victory for crosses!')
+        break
+    elif board[0] + board[1] + board[2] == Owin:
+        print('Victory for noughts!')
+        break
+    turnsPassed = turnsPassed + 1
