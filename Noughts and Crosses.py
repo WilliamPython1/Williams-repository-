@@ -1,13 +1,15 @@
-
 board = ['' for b in range(9)]
 turnsPassed = 1
 Owin = 'OOO'
 Xwin = 'XXX'
 
+#idea: parameters: 2player, 1player, different modes?
+#':^3' center aligns text (X or O)
+
 def positions():
-    row1 = '| {} | {} | {} |'.format(board[0], board[1], board[2])
-    row2 = '| {} | {} | {} |'.format(board[3], board[4], board[5])
-    row3 = '| {} | {} | {} |'.format(board[6], board[7], board[8])
+    row1 = '| {:^3} | {:^3} | {:^3} |'.format(board[0], board[1], board[2])
+    row2 = '| {:^3} | {:^3} | {:^3} |'.format(board[3], board[4], board[5])
+    row3 = '| {:^3} | {:^3} | {:^3} |'.format(board[6], board[7], board[8])
 
     print()
     print(row1)
@@ -15,8 +17,11 @@ def positions():
     print(row3)
     print()
 
-
-positions()
+playAgain = input('Would you like to play a game of noughts and crosses?')
+if playAgain == 'Yes':
+    positions()
+else:
+    print('Goodbye.')
 noughtOrCross = 1
 def choice(turn):
     move = int(input('Which position would you like to go (1-9)?'))
@@ -28,6 +33,7 @@ def choice(turn):
         board[move - 1] = icon
         positions()
 
+
 while board[0] + board[1] + board[2] != Xwin or board[0] + board[1] + board[2] != Owin:
     choice(turnsPassed)
     if board[0] + board[1] + board[2] == Xwin or board[3] + board[4] + board[5] == Xwin or board[6] + board[7] + board[8] == Xwin or board[0] + board[4] + board[8] == Xwin or board[2] + board[4] + board[6] == Xwin:
@@ -37,6 +43,5 @@ while board[0] + board[1] + board[2] != Xwin or board[0] + board[1] + board[2] !
         print('Victory for noughts!')
         break
     elif board[0] and board[1] and board[2] and board[3] and board[4] and board[5] and board[6] and board[7] and board[8]:
-        print('It was a draw... get good Tom!')
-        break
+        print('It was a draw')
     turnsPassed = turnsPassed + 1
