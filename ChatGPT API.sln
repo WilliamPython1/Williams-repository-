@@ -1,23 +1,23 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.5.33530.505
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ChatGPT API", "ChatGPT API.pyproj", "{65722911-A206-49A5-82B1-8F0F8D3A02D6}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{65722911-A206-49A5-82B1-8F0F8D3A02D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65722911-A206-49A5-82B1-8F0F8D3A02D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1B53E109-246B-4DB5-9862-CCDC299D7C9A}
-	EndGlobalSection
-EndGlobal
+import openai
+# Replace 'YOUR_API_KEY' with your actual API key
+openai.api_key = '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'
+
+def ask_chat_gpt(prompt):
+    try:
+        response = openai.Completion.create(
+            engine="text-davinci-002",  # Replace with the appropriate engine name for ChatGPT
+            prompt=prompt,
+            max_tokens=150,  # Adjust the response length as needed
+            temperature=0.7,  # Adjust the temperature for more/less randomness
+            stop=["\n"]  # You can add custom stop sequences to control the response termination
+        )
+        return response.choices[0].text.strip()
+    except Exception as e:
+        # Handle API errors
+        return str(e)
+
+# Example usage
+prompt = "You: Who are you?"
+response = ask_chat_gpt(prompt)
+print(response)
+
