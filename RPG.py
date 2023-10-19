@@ -21,6 +21,21 @@ class Player:
         for item, quantity in self.inventory.items():
             print(f"{item}: {quantity}")
 
+    def use_health_potion(self):
+        if "Health Potion" in self.inventory and self.health < 100:
+            self.inventory["Health Potion"] -= 1
+            self.health = min(100, self.health + 20)  # Adjust the amount based on your game balance.
+
+    def equip_weapon(self, weapon):
+        if weapon in self.inventory:
+            self.attack += 10  # Adjust the bonus based on the weapon's power.
+            print(f"You equipped the {weapon}.")
+
+    def equip_armor(self, armor):
+        if armor in self.inventory:
+            self.defense += 5  # Adjust the bonus based on the armor's protection.
+            print(f"You equipped the {armor}.")
+
 class Shop:
     def __init__(self):
         self.items = {
@@ -92,14 +107,33 @@ def main():
             print("Items for sale:")
             for item, price in shop.items.items():
                 print(f"{item}: {price} gold")
-            shop_choice = input("Enter item name to buy or 'exit' to leave the shop: ")
+            shop_choice = input("Enter item name to buy, 'use' to use an item, or 'exit' to leave the shop: ")
             if shop_choice == 'exit':
                 continue
-            shop.buy(shop_choice, player)
+            elif shop_choice == 'use':
+                use_item = input("Enter item name to use: ")
+                if use_item == "Health Potion":
+                    player.use_health_potion()
+                else:
+                    print("Invalid item to use.")
+            else:
+                shop.buy(shop_choice, player)
         elif choice == "3":
             enemy = Enemy("Goblin", 30, 8, 2)
             print(f"\nA wild {enemy.name} appears!")
-            battle(player, enemy)
+            player_choice = input("Enter 'attack' to attack or 'use' to use an item: ")
+            if player_choice == "attack":
+                battle(player, enemy)
+            elif player_choice == "use":
+                item_to_use = input("Enter item name to use: ")
+                if item_to_use == "Health Potion":
+                    player.use_health_potion()
+                elif item_to_use == "Sword":
+                    player.equip_weapon("Sword")
+                elif item_to_use == "Armor":
+                    player.equip_armor("Armor")
+                else:
+                    print("Invalid item to use.")
         elif choice == "4":
             print("Goodbye!")
             break
