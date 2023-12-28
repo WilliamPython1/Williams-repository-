@@ -1,5 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
+
+ /**
+   * @title ContractName
+   * @dev ContractDescription
+   * @custom:dev-run-script scripts/deploy_with_ethers.ts
+   */
 
 contract BasicToken {
     string public name;
@@ -43,4 +49,4 @@ contract BasicToken {
         emit Transfer(from, to, value);
         return true;
     }
-}
+    }
